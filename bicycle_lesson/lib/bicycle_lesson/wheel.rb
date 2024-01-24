@@ -1,7 +1,8 @@
 class Wheel
-  def initialize(rim, tire)
+  def initialize(rim:, tire:, chainring:, cog:)
     @rim = rim
     @tire = tire
+    @gear = Gear.new(chainring: chainring, cog: cog)
   end
 
   def diameter
@@ -12,7 +13,11 @@ class Wheel
     diameter * Math::PI
   end
 
+  def gear_inches
+    gear.gear_inches(diameter)
+  end
+
   private
 
-  attr_reader :rim, :tire
+  attr_reader :rim, :tire, :gear
 end

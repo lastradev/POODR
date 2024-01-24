@@ -1,11 +1,10 @@
 class Gear
-  def initialize(chainring: default_chainring, cog: 18, wheel:)
+  def initialize(chainring: default_chainring, cog:)
     @chainring = chainring
     @cog = cog
-    @wheel = wheel
   end
   
-  def gear_inches
+  def gear_inches(diameter)
     ratio * diameter
   end
 
@@ -15,11 +14,7 @@ class Gear
   
   private
 
-  attr_reader :chainring, :cog, :wheel
-
-  def diameter
-    wheel.diameter
-  end
+  attr_reader :chainring, :cog
 
   def default_chainring
     (100/2) - 10 # silly code, useful example
