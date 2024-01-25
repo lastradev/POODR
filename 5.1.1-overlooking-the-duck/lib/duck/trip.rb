@@ -7,19 +7,9 @@ class Trip
     @vehicle = vehicle
   end
 
-  # this 'mechanic' parameter could be of any class
   def prepare(preparers)
     preparers.each do |preparer|
-      case preparer
-      when Mechanic
-        preparer.prepare_bicycles(bicycles)
-      when TripCoordinator
-        preparer.buy_food(customers) 
-      end
-      when Driver
-        preparer.gas_up(vehicle)
-        preparer.fill_water_tank(vehicle)
-      end
+      preparer.prepare_trip(self)
     end
   end
 end
