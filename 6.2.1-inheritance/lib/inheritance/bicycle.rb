@@ -1,32 +1,33 @@
 class Bicycle
-  attr_reader :style, :size,
-              :tape_color,
-              :front_shock, :rear_shock
+  attr_reader :size, :chain, :tire_size
 
   def initialize(**opts)
-    @style = opts[:style]
     @size = opts[:size]
-    @tape_color = opts[:tape_color]
-    @front_shock = opts[:front_shock]
-    @rear_shock = opts[:rear_shock]
+    @chain = opts[:chain] || default_chain
+    @tire_size = opts[:tire_size] || default_tire_size
+    post_initialize(opts)
   end
 
-  # Every bike has the same defaults for
-  # tire and chain size.
-  def spares
-    # Smelly code.
-    if style == :road
-      {
-        chain: '11-speed',
-        tire_size: '23',          # Millimeters.
-        tape_color: tape_color
-      }
-    else
-      {
-        chain: '11-speed',
-        tire_size: '2.1',         # Inches.
-        front_shock: front_shock
-      }
-    end
+  def default_tire_size
+    raise NotImplementedError
   end
+
+  def spares
+    {
+      chain: chain,
+      tire_size: tire_size
+    }.merge(local_spares)
+  end
+
+  def post_initialize(opts)
+  end
+
+  def local_spares
+    {}
+  end
+
+  def default_chain
+    "11-speed"
+  end
+
 end
